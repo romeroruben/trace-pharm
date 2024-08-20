@@ -3,7 +3,7 @@ const { connectToNetwork } = require('../services/fabricService');
 exports.initiateShipment = async (req, res) => {
   try {
     const { contract, gateway } = await connectToNetwork("Distribuidor");
-    await contract.submitTransaction('InitiateShipment', req.body.batchID);
+    await contract.submitTransaction('InitiateShipment', req.body.batchID, req.body.carrier);
     await gateway.disconnect();
     res.status(200).send('Shipment initiated successfully');
   } catch (error) {

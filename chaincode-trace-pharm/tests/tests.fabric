@@ -1,0 +1,83 @@
+[
+
+    {
+        "description": "Registro de un nuevo lote de medicamentos en estado de Producción",
+        "invoke": "RegisterBatch",
+        "identity": "Fabricante",
+        "args": [
+            "lote002",
+            "PharmaX",
+            "2024-08-01",
+            "2026-08-01",
+            "2-8°C",
+            "Almacén Central",
+            "Paracetamol 500mg",
+            "[{\"medicationID\":\"med001\",\"serialNumber\":\"SN001\",\"expiryDate\":\"2026-08-01\"},{\"medicationID\":\"med002\",\"serialNumber\":\"SN002\",\"expiryDate\":\"2026-08-01\"}]"
+        ]
+    },
+    {
+        "description": "Iniciar el transporte del lote a la farmacia, cambiando el estado del lote a En tránsito",
+        "invoke": "InitiateShipment",
+        "identity": "Distribuidor",
+        "args": [
+            "lote001"
+        ]
+    },
+    {
+        "description": "Registro de un evento de transporte: temperatura mantenida entre 2-8°C durante el trayecto en Autopista Panamericana",
+        "invoke": "RegisterTransportEvent",
+        "identity": "Distribuidor",
+        "args": [
+            "lote001",
+            "Autopista Panamericana, Buenos Aires",
+            "2-8°C",
+            "-34.5452, -58.4707",
+            "2024-08-02T06:00:00Z"
+        ]
+    },
+    {
+        "description": "Registro de un segundo evento de transporte: temperatura mantenida entre 2-8°C al llegar al Centro de Distribución Sur",
+        "invoke": "RegisterTransportEvent",
+        "identity": "Distribuidor",
+        "args": [
+            "lote001",
+            "Centro de Distribución Sur, Av. Belgrano 2100, Buenos Aires",
+            "2-8°C",
+            "-34.6118, -58.4173",
+            "2024-08-02T10:30:00Z"
+        ]
+    },
+    {
+        "description": "Entrega del lote a la farmacia, estado del lote cambia a En farmacia",
+        "invoke": "DeliverToPharmacy",
+        "identity": "Distribuidor",
+        "args": [
+            "lote001",
+            "Farmacia Z, Av. Corrientes 3500, Buenos Aires"
+        ]
+    },
+    {
+        "description": "Verificación de la autenticidad del lote por un auditor",
+        "invoke": "ValidateAuthenticity",
+        "identity": "Auditor",
+        "args": [
+            "lote002"
+        ]
+    },
+    {
+        "description": "Validación de un medicamento específico del lote por un consumidor final",
+        "invoke": "ValidateMedication",
+        "identity": "Consumidor",
+        "args": [
+            "med001"
+        ]
+    },
+    {
+        "description": "Auditar el historial completo del lote",
+        "invoke": "AuditBatchHistory",
+        "identity": "Auditor",
+        "args": [
+            "lote001"
+        ]
+    }
+]
